@@ -6,3 +6,4 @@ client/server
 .vscode/**
 !.vscode/launch.json
 !.vscode/tasks.json
+*.vsix

@@ -34,4 +34,7 @@ It also includes an End-to-End test.
 - To debug the server code, additionally Run and Debug > Select `Attach to Server`
 
 # Antlr
-* To regenerate the antlr lexer and parser files, run `npm run generate`.
+-  To regenerate the antlr lexer and parser files, run `npm run generate`.
+
+# Publish
+- To publish to a .vsix file, run `npm run publish`.
