@@ -173,9 +173,8 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 			break;
 		}
 		
-		console.log('end > textlength', error.stop, text.length);
 		if (error.stop > text.length) {
-			console.log('assertion fail')
+			console.error('assertion fail')
 		}
 
 		const diagnostic: Diagnostic = {
@@ -260,7 +259,7 @@ connection.onCompletionResolve(
 
 class LexerErrorListener extends ErrorListener<number> {
 	syntaxError(rec: Recognizer<number>, sym: number, line: number, col: number, msg: string, e: RecognitionException) {
-		console.log('here in cyphererrorlistener')
+		console.log('TODO here in cyphererrorlistener')
 	}
 }
 
@@ -277,12 +276,10 @@ interface CypherError {
 class ParserErrorListener extends ErrorListener<Token> {
 	errors: CypherError[] = [];
 	syntaxError(rec: Recognizer<Token>, sym: Token, line: number, col: number, msg: string, e: RecognitionException) {
-		console.log('here in parserrerrorlistener')
 
 		const { start, stop } = sym || {};
 		if (msg === "mismatched input '<EOF>' expecting {';', SP}") {
-			// suppress error about missing semicolon at the end of a query
-			return;
+			return;  // suppress error about missing semicolon at the end of a query
 		}
 		if (msg === "missing ';' at '<EOF>'") {
 			return;
@@ -296,9 +293,7 @@ class ParserErrorListener extends ErrorListener<Token> {
 }
 
 
-// Make the text document manager listen on the connection
-// for open, change and close text document events
+// text document manager to listen on connection for open, change and close text document events
+// then listen on connection
 documents.listen(connection);
-
-// Listen on the connection
 connection.listen();
