@@ -7,3 +7,4 @@ client/server
 !.vscode/launch.json
 !.vscode/tasks.json
 *.vsix
+antlr4/.antlr/*
