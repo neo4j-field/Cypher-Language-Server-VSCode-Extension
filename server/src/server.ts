@@ -187,24 +187,24 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 			source: 'Cypher Lang'
 		};
 		
-		if (hasDiagnosticRelatedInformationCapability) {
-			diagnostic.relatedInformation = [
-				{
-					location: {
-						uri: textDocument.uri,
-						range: Object.assign({}, diagnostic.range)
-					},
-					message: 'Additional details 1'
-				},
-				{
-					location: {
-						uri: textDocument.uri,
-						range: Object.assign({}, diagnostic.range)
-					},
-					message: 'Additional details 2'
-				}
-			];
-		}
+		// if (hasDiagnosticRelatedInformationCapability) {
+		// 	diagnostic.relatedInformation = [
+		// 		{
+		// 			location: {
+		// 				uri: textDocument.uri,
+		// 				range: Object.assign({}, diagnostic.range)
+		// 			},
+		// 			message: 'Additional details 1'
+		// 		},
+		// 		{
+		// 			location: {
+		// 				uri: textDocument.uri,
+		// 				range: Object.assign({}, diagnostic.range)
+		// 			},
+		// 			message: 'Additional details 2'
+		// 		}
+		// 	];
+		// }
 		
 		diagnostics.push(diagnostic);
 	}

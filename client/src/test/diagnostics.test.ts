@@ -8,13 +8,28 @@ import * as assert from 'assert';
 import { getDocUri, activate } from './helper';
 
 suite('Should get diagnostics', () => {
-	const docUri = getDocUri('diagnostics.txt');
+	const docUri = getDocUri('diagnostics1.cql');
 
-	test('Diagnoses uppercase texts', async () => {
+	test('Diagnoses an error 1', async () => {
 		await testDiagnostics(docUri, [
-			{ message: 'ANY is all uppercase.', range: toRange(0, 0, 0, 3), severity: vscode.DiagnosticSeverity.Warning, source: 'ex' },
-			{ message: 'ANY is all uppercase.', range: toRange(0, 14, 0, 17), severity: vscode.DiagnosticSeverity.Warning, source: 'ex' },
-			{ message: 'OS is all uppercase.', range: toRange(0, 18, 0, 20), severity: vscode.DiagnosticSeverity.Warning, source: 'ex' }
+			{ 
+				message: `no viable alternative at input '{id,'`, 
+				range: toRange(4, 23, 4, 23), 
+				severity: vscode.DiagnosticSeverity.Warning, 
+				source: 'Cypher Lang' 
+			},
+			{ 
+				message: `mismatched input 'isEnd' expecting ')'`, 
+				range: toRange(4, 40, 4, 44), 
+				severity: vscode.DiagnosticSeverity.Warning, 
+				source: 'Cypher Lang' 
+			},
+			{ 
+				message: `mismatched input 'false' expecting {<EOF>, ';'}`, 
+				range: toRange(4, 47, 4, 51), 
+				severity: vscode.DiagnosticSeverity.Warning, 
+				source: 'Cypher Lang' 
+			},
 		]);
 	});
 });
@@ -32,10 +47,11 @@ async function testDiagnostics(docUri: vscode.Uri, expectedDiagnostics: vscode.D
 
 	assert.equal(actualDiagnostics.length, expectedDiagnostics.length);
 
-	expectedDiagnostics.forEach((expectedDiagnostic, i) => {
+	for (let i = 0; i < expectedDiagnostics.length; i++) {
+		const expectedDiagnostic = expectedDiagnostics[i];
 		const actualDiagnostic = actualDiagnostics[i];
 		assert.equal(actualDiagnostic.message, expectedDiagnostic.message);
 		assert.deepEqual(actualDiagnostic.range, expectedDiagnostic.range);
 		assert.equal(actualDiagnostic.severity, expectedDiagnostic.severity);
-	});
+	}
 }
